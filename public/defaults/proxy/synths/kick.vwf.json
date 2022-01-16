@@ -1,0 +1,10 @@
+{
+    "extends": "proxy/tonejs/membraneSynth.vwf",
+    "properties": {
+
+    },
+    "methods":{},
+    "scripts": {
+      "source": "synth.js"
+    }
+  }

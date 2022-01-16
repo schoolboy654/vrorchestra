@@ -1,0 +1,14 @@
+{
+  "info":{
+    "title": "VWF & AFrame Example App"
+  },
+  "model": {
+    "/drivers/model/aframe": {},
+    "/drivers/model/aframeComponent": null
+  },
+  "view": {
+    "/drivers/view/aframe": null,
+    "/drivers/view/aframeComponent": null,
+    "/drivers/view/editor": null
+  }
+}

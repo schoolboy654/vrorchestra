@@ -1,0 +1,39 @@
+{
+  "extends": "proxy/aframe/ascene.vwf",
+  "properties": {
+    "transparent": true
+  },
+  "methods": {
+    "initialize": {},
+    "createInstruments": {},
+    "iterateInstruments": {}
+  },
+  "children": {
+    "sky": {
+      "extends": "proxy/aframe/asky.vwf",
+      "children": {
+        "material": {
+          "extends": "proxy/aframe/aMaterialComponent.vwf",
+          "properties": {
+            "color": "#ECECEC",
+            "side": "back",
+            "fog": false,
+            "shader": "flat"
+          }
+        }
+      }
+    },
+    "myLight": {
+      "extends": "proxy/aframe/alight.vwf",
+      "properties": {
+        "type": "directional",
+        "color": "white",
+        "position": [0,3,2],
+        "rotation": [0,0,0]
+      }
+    }
+  },
+  "scripts": {
+    "source": "instruments.js"
+  }
+}

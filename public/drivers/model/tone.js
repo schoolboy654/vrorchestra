@@ -135,6 +135,66 @@ class ToneModel extends Fabric {
                                 toneObj = new Tone.PolySynth(Tone.synth);
                             }
 
+                            if (this.isToneClass(protos, "proxy/synths/supersaw.vwf")) {
+                                let reverb = new Tone.Reverb().toDestination();
+                                reverb.dampening = 500;
+                                toneObj = new Tone.PolySynth(Tone.synth).connect(reverb)
+                                toneObj.options.volume = 20
+                                toneObj.options.oscillator.count = 3
+                                toneObj.options.oscillator.spread = 30
+                                toneObj.options.oscillator.type = "fatsawtooth"
+                            }
+
+                            if (this.isToneClass(protos, "proxy/synths/kick.vwf")) {
+                              let reverb = new Tone.Reverb().toDestination();
+                              reverb.dampening = 500;
+                              toneObj = new Tone.PolySynth(Tone.MembraneSynth).connect(reverb)
+                              toneObj.options.volume = 20
+                            }
+
+                            if (this.isToneClass(protos, "proxy/synths/snare.vwf")) {
+                              let reverb = new Tone.Reverb().toDestination();
+                              let lowPass = new Tone.Filter().connect(reverb);
+                              lowPass.set({
+                                  frequency: 8000
+                              })
+                              toneObj = new Tone.PolySynth(Tone.NoiseSynth).connect(lowPass)
+                              toneObj.options.volume = 5
+                              toneObj.set({
+                                noise: {
+                                  type: 'white',
+                                  playbackRate: 3
+                                },
+                                envelope: {
+                                  attack: 0.001,
+                                  decay: 0.20,
+                                  sustain: 0.15,
+                                  release: 0.1
+                                }
+                               });
+                            }
+
+                            if (this.isToneClass(protos, "proxy/synths/cymbal.vwf")) {
+                              let reverb = new Tone.Reverb().toDestination();
+
+
+                              toneObj = new Tone.PolySynth(Tone.MetalSynth).connect(reverb)
+
+                              toneObj.set({
+                                volume: 1,
+                                frequency  : 800 ,
+                                envelope  : {
+                                attack  : 0.001 ,
+                                decay  : 1.4 ,
+                                release  : 0.2
+                                },
+                                harmonicity  : 5.1 ,
+                                modulationIndex  : 32 ,
+                                resonance  : 4000 ,
+                                octaves  : 1.5
+                               });
+                            }
+
                             if (this.isToneClass(protos, "proxy/tonejs/membraneSynth.vwf")) {
                                 toneObj = new Tone.PolySynth(Tone.MembraneSynth);
                                 // toneObj.set({
@@ -170,7 +230,7 @@ class ToneModel extends Fabric {
                 creatingNode: function (nodeID, childID, childExtendsID, childImplementsIDs,
                     childSource, childType, childIndex, childName, callback /* ( ready ) */) {
 
-                    // If the parent nodeID is 0, this node is attached directly to the root and is therefore either 
+                    // If the parent nodeID is 0, this node is attached directly to the root and is therefore either
                     // the scene or a prototype.  In either of those cases, save the uri of the new node
                     var childURI = (nodeID === 0 ? childIndex : undefined);
                     var appID = this.kernel.application();

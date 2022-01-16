@@ -1,0 +1,1529 @@
+{
+  "extends": "proxy/aframe/ascene.vwf",
+  "properties": {
+    "transparent": true
+  },
+  "methods": {
+    "initialize": {
+      "body": "",
+      "type": "application/javascript"
+    }
+  },
+  "children": {
+    "instrument_supersaw": {
+      "extends": "proxy/aframe/acylinder.vwf",
+      "properties": {
+        "position": [3,0,0],
+        "rotation": [0,90,0],
+        "height": "0.1",
+        "color": "#f2f2f2",
+        "quantize_toggle": false,
+        "quantize": "8n",
+        "quantize_percentage": 1
+      },
+      "children": {
+          "button_quantize": {
+          "extends": "proxy/aframe/abox.vwf",
+          "properties": {
+            "position": [-1,1.5,0],
+            "rotation": [0,90,0],
+            "height": 0.1,
+            "depth": 0.1,
+            "width": 0.4,
+            "class": "clickable intersectable"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/tonejs/synth.vwf",
+               "properties": {
+                 "type": "sawtooth"
+               }
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#3c7249",
+                "transparent": true
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "Toggle Quantize",
+                "color": "#f2f2f2",
+                "position": [0,0,0.05],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            }
+          },
+          "scripts": {
+            "source": "button_quantize.js"
+          }
+        },
+        "label_quantize": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "Quantize",
+                "color": "#f2f2f2",
+                "opacity": 0.2,
+                "position": [-1,1.4,0],
+                "rotation": [0,90,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              },
+              "children" : {
+                "button_quantize_change": {
+                "extends": "proxy/aframe/abox.vwf",
+                "properties": {
+                  "position": [0.3,0,0],
+                  "rotation": [0,0,0],
+                  "height": 0.1,
+                  "depth": 0.1,
+                  "width": 0.1,
+                  "class": "clickable intersectable"
+                },
+                "methods": {
+                  "clickEventMethod": {},
+                  "intersectEventMethod": {},
+                  "clearIntersectEventMethod": {},
+                  "generateColor": {}
+                },
+                "events": {
+                  "clickEvent": {},
+                  "intersectEvent": {},
+                  "clearIntersectEvent": {}
+                },
+                "children": {
+                  "material": {
+                    "extends": "proxy/aframe/aMaterialComponent.vwf",
+                    "properties": {
+                      "color": "#3c7249",
+                      "transparent": true
+                    }
+                  },
+                  "raycaster-listener": {
+                    "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+                    "type": "component"
+                  },
+                  "cursor-listener": {
+                    "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+                    "type": "component"
+                  },
+                  "label": {
+                    "extends": "proxy/aframe/atext.vwf",
+                    "properties": {
+                      "value": ">",
+                      "color": "#f2f2f2",
+                      "position": [0,0,0.05],
+                      "height": 1,
+                      "width": 1,
+                      "align": "center",
+                      "anchor": "align"
+                    }
+                  }
+                },
+                "scripts": {
+                  "source": "button_quantize_change.js"
+                }
+              }
+              },
+              "methods": {
+                "loadData": {}
+              },
+              "scripts": {
+                "source": "label_quantize.js"
+              }
+            },
+            "label_quantize_percentage": {
+                  "extends": "proxy/aframe/atext.vwf",
+                  "properties": {
+                    "value": "Quantize percentage",
+                    "color": "#f2f2f2",
+                    "opacity": 0.2,
+                    "position": [-1,1.2,0],
+                    "rotation": [0,90,0],
+                    "height": 1,
+                    "width": 1,
+                    "align": "center",
+                    "anchor": "align"
+                  },
+                  "children": {
+                    "button_quantize_percentage_change": {
+                    "extends": "proxy/aframe/abox.vwf",
+                    "properties": {
+                      "position": [0.35,0,0],
+                      "rotation": [0,0,0],
+                      "height": 0.1,
+                      "depth": 0.1,
+                      "width": 0.1,
+                      "class": "clickable intersectable"
+                    },
+                    "methods": {
+                      "clickEventMethod": {},
+                      "intersectEventMethod": {},
+                      "clearIntersectEventMethod": {},
+                      "generateColor": {}
+                    },
+                    "events": {
+                      "clickEvent": {},
+                      "intersectEvent": {},
+                      "clearIntersectEvent": {}
+                    },
+                    "children": {
+                      "material": {
+                        "extends": "proxy/aframe/aMaterialComponent.vwf",
+                        "properties": {
+                          "color": "#3c7249",
+                          "transparent": true
+                        }
+                      },
+                      "raycaster-listener": {
+                        "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+                        "type": "component"
+                      },
+                      "cursor-listener": {
+                        "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+                        "type": "component"
+                      },
+                      "label": {
+                        "extends": "proxy/aframe/atext.vwf",
+                        "properties": {
+                          "value": ">",
+                          "color": "#f2f2f2",
+                          "position": [0,0,0.05],
+                          "height": 1,
+                          "width": 1,
+                          "align": "center",
+                          "anchor": "align"
+                        }
+                      }
+                    },
+                    "scripts": {
+                      "source": "button_quantize_percentage_change.js"
+                    }
+                  }
+                  },
+                  "methods": {
+                    "loadData": {}
+                  },
+                  "scripts": {
+                    "source": "label_quantize.js"
+                  }
+                },
+        "C3": {
+          "extends": "proxy/aframe/abox.vwf",
+          "properties": {
+            "position": [-0.6,1,-0.86],
+            "rotation": [45,0,0],
+            "height": 0.03,
+            "width": 0.19,
+            "depth": 0.19,
+            "class": "clickable intersectable",
+            "frequency": "C3"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/tonejs/synth.vwf",
+               "properties": {
+                 "type": "sawtooth"
+               }
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#002984",
+                "transparent": true,
+                "opacity": 0.8
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "C",
+                "color": "#ffffff",
+                "position": [0,0.03,0],
+                "rotation": [-90,0,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            },
+            "core": {
+              "extends": "proxy/aframe/abox.vwf",
+              "properties": {
+                "height": 0.01,
+                "width": 0.18,
+                "depth": 0.18,
+                "color": "#002984"
+              }
+            }
+          },
+          "scripts": {
+            "source": "instrument.js"
+          }
+        },
+        "C#3": {
+          "extends": "proxy/aframe/abox.vwf",
+          "properties": {
+            "position": [-0.5,1.14,-1],
+            "rotation": [45,0,0],
+            "height": 0.03,
+            "width": 0.19,
+            "depth": 0.19,
+            "class": "clickable intersectable",
+            "frequency": "C#3"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/tonejs/synth.vwf",
+               "properties": {
+                 "type": "sawtooth"
+               }
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#d50000",
+                "transparent": true,
+                "opacity": 0.8
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "C#",
+                "color": "#ffffff",
+                "position": [0,0.03,0],
+                "rotation": [-90,0,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            },
+            "core": {
+              "extends": "proxy/aframe/abox.vwf",
+              "properties": {
+                "height": 0.01,
+                "width": 0.18,
+                "depth": 0.18,
+                "color": "#d50000"
+              }
+            }
+          },
+          "scripts": {
+            "source": "instrument.js"
+          }
+        },
+        "D3": {
+          "extends": "proxy/aframe/abox.vwf",
+          "properties": {
+            "position": [-0.4,1,-0.86],
+            "rotation": [45,0,0],
+            "height": 0.03,
+            "width": 0.19,
+            "depth": 0.19,
+            "class": "clickable intersectable",
+            "frequency": "D3"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/tonejs/synth.vwf",
+               "properties": {
+                 "type": "sawtooth"
+               }
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#ffc107",
+                "transparent": true,
+                "opacity": 0.8
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "D",
+                "color": "#ffffff",
+                "position": [0,0.03,0],
+                "rotation": [-90,0,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            },
+            "core": {
+              "extends": "proxy/aframe/abox.vwf",
+              "properties": {
+                "height": 0.01,
+                "width": 0.18,
+                "depth": 0.18,
+                "color": "#ffc107"
+              }
+            }
+          },
+          "scripts": {
+            "source": "instrument.js"
+          }
+        },
+        "D#3": {
+          "extends": "proxy/aframe/abox.vwf",
+          "properties": {
+            "position": [-0.3,1.14,-1],
+            "rotation": [45,0,0],
+            "height": 0.03,
+            "width": 0.19,
+            "depth": 0.19,
+            "class": "clickable intersectable",
+            "frequency": "D#3"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/tonejs/synth.vwf",
+               "properties": {
+                 "type": "sawtooth"
+               }
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#bf360c",
+                "transparent": true,
+                "opacity": 0.8
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "D#",
+                "color": "#ffffff",
+                "position": [0,0.03,0],
+                "rotation": [-90,0,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            },
+            "core": {
+              "extends": "proxy/aframe/abox.vwf",
+              "properties": {
+                "height": 0.01,
+                "width": 0.18,
+                "depth": 0.18,
+                "color": "#bf360c"
+              }
+            }
+          },
+          "scripts": {
+            "source": "instrument.js"
+          }
+        },
+        "E3": {
+          "extends": "proxy/aframe/abox.vwf",
+          "properties": {
+            "position": [-0.2,1,-0.86],
+            "rotation": [45,0,0],
+            "height": 0.03,
+            "width": 0.19,
+            "depth": 0.19,
+            "class": "clickable intersectable",
+            "frequency": "E3"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/tonejs/synth.vwf",
+               "properties": {
+                 "type": "sawtooth"
+               }
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#673ab7",
+                "transparent": true,
+                "opacity": 0.8
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "E",
+                "color": "#ffffff",
+                "position": [0,0.03,0],
+                "rotation": [-90,0,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            },
+            "core": {
+              "extends": "proxy/aframe/abox.vwf",
+              "properties": {
+                "height": 0.01,
+                "width": 0.18,
+                "depth": 0.18,
+                "color": "#673ab7"
+              }
+            }
+          },
+          "scripts": {
+            "source": "instrument.js"
+          }
+        },
+        "F3": {
+          "extends": "proxy/aframe/abox.vwf",
+          "properties": {
+            "position": [0,1,-0.86],
+            "rotation": [45,0,0],
+            "height": 0.03,
+            "width": 0.19,
+            "depth": 0.19,
+            "class": "clickable intersectable",
+            "frequency": "F3"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/tonejs/synth.vwf",
+               "properties": {
+                 "type": "sawtooth"
+               }
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#4caf50",
+                "transparent": true,
+                "opacity": 0.8
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "F",
+                "color": "#ffffff",
+                "position": [0,0.03,0],
+                "rotation": [-90,0,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            },
+            "core": {
+              "extends": "proxy/aframe/abox.vwf",
+              "properties": {
+                "height": 0.01,
+                "width": 0.18,
+                "depth": 0.18,
+                "color": "#4caf50"
+              }
+            }
+          },
+          "scripts": {
+            "source": "instrument.js"
+          }
+        },
+        "F#3": {
+          "extends": "proxy/aframe/abox.vwf",
+          "properties": {
+            "position": [0.1,1.14,-1],
+            "rotation": [45,0,0],
+            "height": 0.03,
+            "width": 0.19,
+            "depth": 0.19,
+            "class": "clickable intersectable",
+            "frequency": "F#3"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/tonejs/synth.vwf",
+               "properties": {
+                 "type": "sawtooth"
+               }
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#2196f3",
+                "transparent": true,
+                "opacity": 0.8
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "F#",
+                "color": "#ffffff",
+                "position": [0,0.03,0],
+                "rotation": [-90,0,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            },
+            "core": {
+              "extends": "proxy/aframe/abox.vwf",
+              "properties": {
+                "height": 0.01,
+                "width": 0.18,
+                "depth": 0.18,
+                "color": "#2196f3"
+              }
+            }
+          },
+          "scripts": {
+            "source": "instrument.js"
+          }
+        },
+        "G3": {
+          "extends": "proxy/aframe/abox.vwf",
+          "properties": {
+            "position": [0.2,1,-0.86],
+            "rotation": [45,0,0],
+            "height": 0.03,
+            "width": 0.19,
+            "depth": 0.19,
+            "class": "clickable intersectable",
+            "frequency": "G3"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/tonejs/synth.vwf",
+               "properties": {
+                 "type": "sawtooth"
+               }
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#d500f9",
+                "transparent": true,
+                "opacity": 0.8
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "G",
+                "color": "#ffffff",
+                "position": [0,0.03,0],
+                "rotation": [-90,0,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            },
+            "core": {
+              "extends": "proxy/aframe/abox.vwf",
+              "properties": {
+                "height": 0.01,
+                "width": 0.18,
+                "depth": 0.18,
+                "color": "#d500f9"
+              }
+            }
+          },
+          "scripts": {
+            "source": "instrument.js"
+          }
+        },
+        "G#3": {
+          "extends": "proxy/aframe/abox.vwf",
+          "properties": {
+            "position": [0.3,1.14,-1],
+            "rotation": [45,0,0],
+            "height": 0.03,
+            "width": 0.19,
+            "depth": 0.19,
+            "class": "clickable intersectable",
+            "frequency": "G#3"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/tonejs/synth.vwf",
+               "properties": {
+                 "type": "sawtooth"
+               }
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#ff4081",
+                "transparent": true,
+                "opacity": 0.8
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "G#",
+                "color": "#ffffff",
+                "position": [0,0.03,0],
+                "rotation": [-90,0,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            },
+            "core": {
+              "extends": "proxy/aframe/abox.vwf",
+              "properties": {
+                "height": 0.01,
+                "width": 0.18,
+                "depth": 0.18,
+                "color": "#ff4081"
+              }
+            }
+          },
+          "scripts": {
+            "source": "instrument.js"
+          }
+        },
+        "A3": {
+          "extends": "proxy/aframe/abox.vwf",
+          "properties": {
+            "position": [0.4,1,-0.86],
+            "rotation": [45,0,0],
+            "height": 0.03,
+            "width": 0.19,
+            "depth": 0.19,
+            "class": "clickable intersectable",
+            "frequency": "A3"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/tonejs/synth.vwf",
+               "properties": {
+                 "type": "sawtooth"
+               }
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#64dd17",
+                "transparent": true,
+                "opacity": 0.8
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "A",
+                "color": "#ffffff",
+                "position": [0,0.03,0],
+                "rotation": [-90,0,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            },
+            "core": {
+              "extends": "proxy/aframe/abox.vwf",
+              "properties": {
+                "height": 0.01,
+                "width": 0.18,
+                "depth": 0.18,
+                "color": "#64dd17"
+              }
+            }
+          },
+          "scripts": {
+            "source": "instrument.js"
+          }
+        },
+        "A#3": {
+          "extends": "proxy/aframe/abox.vwf",
+          "properties": {
+            "position": [0.5,1.14,-1],
+            "rotation": [45,0,0],
+            "height": 0.03,
+            "width": 0.19,
+            "depth": 0.19,
+            "class": "clickable intersectable",
+            "frequency": "A#3"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/tonejs/synth.vwf",
+               "properties": {
+                 "type": "sawtooth"
+               }
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#00695c",
+                "transparent": true,
+                "opacity": 0.8
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "A#",
+                "color": "#ffffff",
+                "position": [0,0.03,0],
+                "rotation": [-90,0,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            },
+            "core": {
+              "extends": "proxy/aframe/abox.vwf",
+              "properties": {
+                "height": 0.01,
+                "width": 0.18,
+                "depth": 0.18,
+                "color": "#00695c"
+              }
+            }
+          },
+          "scripts": {
+            "source": "instrument.js"
+          }
+        },
+        "B3": {
+          "extends": "proxy/aframe/abox.vwf",
+          "properties": {
+            "position": [0.6,1,-0.86],
+            "rotation": [45,0,0],
+            "height": 0.03,
+            "width": 0.19,
+            "depth": 0.19,
+            "class": "clickable intersectable",
+            "frequency": "B3"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/tonejs/synth.vwf",
+               "properties": {
+                 "type": "sawtooth"
+               }
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#880e4f",
+                "transparent": true,
+                "opacity": 0.8
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "B",
+                "color": "#ffffff",
+                "position": [0,0.03,0],
+                "rotation": [-90,0,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            },
+            "core": {
+              "extends": "proxy/aframe/abox.vwf",
+              "properties": {
+                "height": 0.01,
+                "width": 0.18,
+                "depth": 0.18,
+                "color": "#880e4f"
+              }
+            }
+          },
+          "scripts": {
+            "source": "instrument.js"
+          }
+        }
+      }
+    },
+    "instrument_drums": {
+      "extends": "proxy/aframe/acylinder.vwf",
+      "properties": {
+        "position": [0,0,3],
+        "height": "0.1",
+        "color": "#f2f2f2",
+        "quantize_toggle": false,
+        "quantize": "8n",
+        "quantize_percentage": 1
+      },
+      "children": {
+          "button_quantize": {
+          "extends": "proxy/aframe/abox.vwf",
+          "properties": {
+            "position": [-1,1.5,0],
+            "rotation": [0,90,0],
+            "height": 0.1,
+            "depth": 0.1,
+            "width": 0.4,
+            "class": "clickable intersectable"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#3c7249",
+                "transparent": true
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "Toggle Quantize",
+                "color": "#f2f2f2",
+                "position": [0,0,0.05],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            }
+          },
+          "scripts": {
+            "source": "button_quantize.js"
+          }
+        },
+        "label_quantize": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "Quantize",
+                "color": "#f2f2f2",
+                "opacity": 0.2,
+                "position": [-1,1.4,0],
+                "rotation": [0,90,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              },
+              "children" : {
+                "button_quantize_change": {
+                "extends": "proxy/aframe/abox.vwf",
+                "properties": {
+                  "position": [0.3,0,0],
+                  "rotation": [0,0,0],
+                  "height": 0.1,
+                  "depth": 0.1,
+                  "width": 0.1,
+                  "class": "clickable intersectable"
+                },
+                "methods": {
+                  "clickEventMethod": {},
+                  "intersectEventMethod": {},
+                  "clearIntersectEventMethod": {},
+                  "generateColor": {}
+                },
+                "events": {
+                  "clickEvent": {},
+                  "intersectEvent": {},
+                  "clearIntersectEvent": {}
+                },
+                "children": {
+                  "material": {
+                    "extends": "proxy/aframe/aMaterialComponent.vwf",
+                    "properties": {
+                      "color": "#3c7249",
+                      "transparent": true
+                    }
+                  },
+                  "raycaster-listener": {
+                    "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+                    "type": "component"
+                  },
+                  "cursor-listener": {
+                    "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+                    "type": "component"
+                  },
+                  "label": {
+                    "extends": "proxy/aframe/atext.vwf",
+                    "properties": {
+                      "value": ">",
+                      "color": "#f2f2f2",
+                      "position": [0,0,0.05],
+                      "height": 1,
+                      "width": 1,
+                      "align": "center",
+                      "anchor": "align"
+                    }
+                  }
+                },
+                "scripts": {
+                  "source": "button_quantize_change.js"
+                }
+              }
+              },
+              "methods": {
+                "loadData": {}
+              },
+              "scripts": {
+                "source": "label_quantize.js"
+              }
+            },
+            "label_quantize_percentage": {
+                  "extends": "proxy/aframe/atext.vwf",
+                  "properties": {
+                    "value": "Quantize percentage",
+                    "color": "#f2f2f2",
+                    "opacity": 0.2,
+                    "position": [-1,1.2,0],
+                    "rotation": [0,90,0],
+                    "height": 1,
+                    "width": 1,
+                    "align": "center",
+                    "anchor": "align"
+                  },
+                  "children": {
+                    "button_quantize_percentage_change": {
+                    "extends": "proxy/aframe/abox.vwf",
+                    "properties": {
+                      "position": [0.35,0,0],
+                      "rotation": [0,0,0],
+                      "height": 0.1,
+                      "depth": 0.1,
+                      "width": 0.1,
+                      "class": "clickable intersectable"
+                    },
+                    "methods": {
+                      "clickEventMethod": {},
+                      "intersectEventMethod": {},
+                      "clearIntersectEventMethod": {},
+                      "generateColor": {}
+                    },
+                    "events": {
+                      "clickEvent": {},
+                      "intersectEvent": {},
+                      "clearIntersectEvent": {}
+                    },
+                    "children": {
+                      "material": {
+                        "extends": "proxy/aframe/aMaterialComponent.vwf",
+                        "properties": {
+                          "color": "#3c7249",
+                          "transparent": true
+                        }
+                      },
+                      "raycaster-listener": {
+                        "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+                        "type": "component"
+                      },
+                      "cursor-listener": {
+                        "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+                        "type": "component"
+                      },
+                      "label": {
+                        "extends": "proxy/aframe/atext.vwf",
+                        "properties": {
+                          "value": ">",
+                          "color": "#f2f2f2",
+                          "position": [0,0,0.05],
+                          "height": 1,
+                          "width": 1,
+                          "align": "center",
+                          "anchor": "align"
+                        }
+                      }
+                    },
+                    "scripts": {
+                      "source": "button_quantize_percentage_change.js"
+                    }
+                  }
+                  },
+                  "methods": {
+                    "loadData": {}
+                  },
+                  "scripts": {
+                    "source": "label_quantize.js"
+                  }
+                },
+                "kick": {
+                  "extends": "proxy/aframe/asphere.vwf",
+                  "properties": {
+                    "position": [-0.5,1,-0.86],
+                    "rotation": [0,0,0],
+                    "radius": 0.2,
+                    "class": "clickable intersectable"
+                  },
+                  "methods": {
+                    "clickEventMethod": {},
+                    "intersectEventMethod": {},
+                    "clearIntersectEventMethod": {},
+                    "generateColor": {}
+                  },
+                  "events": {
+                    "clickEvent": {},
+                    "intersectEvent": {},
+                    "clearIntersectEvent": {}
+                  },
+                  "children": {
+                    "synth": {
+                       "extends": "proxy/synths/kick.vwf",
+                       "properties": {}
+                    },
+                    "material": {
+                      "extends": "proxy/aframe/aMaterialComponent.vwf",
+                      "properties": {
+                        "color": "#0000a6",
+                        "transparent": true,
+                        "opacity": 0.9
+                      }
+                    },
+                    "raycaster-listener": {
+                      "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+                      "type": "component"
+                    },
+                    "cursor-listener": {
+                      "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+                      "type": "component"
+                    },
+                    "label": {
+                      "extends": "proxy/aframe/atext.vwf",
+                      "properties": {
+                        "value": "Kick",
+                        "color": "#f2f2f2",
+                        "position": [0,0.3,0],
+                        "height": 1,
+                        "width": 1,
+                        "align": "center",
+                        "anchor": "align"
+                      }
+                    },
+                    "core": {
+                      "extends": "proxy/aframe/asphere.vwf",
+                      "properties": {
+                        "color": "#ff0019",
+                        "radius": 0.19
+                      }
+                    }
+                  },
+                  "scripts": {
+                    "source": "drum.js"
+                  }
+                },
+        "snare": {
+          "extends": "proxy/aframe/asphere.vwf",
+          "properties": {
+            "position": [0,1,-1],
+            "rotation": [0,0,0],
+            "radius": 0.2,
+            "class": "clickable intersectable"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/synths/snare.vwf",
+               "properties": {}
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#73000b",
+                "transparent": true,
+                "opacity": 0.9
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "Snare",
+                "color": "#f2f2f2",
+                "position": [0,0.3,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            },
+            "core": {
+              "extends": "proxy/aframe/asphere.vwf",
+              "properties": {
+                "color": "#ff0019",
+                "radius": 0.19
+              }
+            }
+          },
+          "scripts": {
+            "source": "snare.js"
+          }
+        },
+        "Cymbal": {
+          "extends": "proxy/aframe/asphere.vwf",
+          "properties": {
+            "position": [0.5,1,-0.86],
+            "rotation": [0,0,0],
+            "radius": 0.2,
+            "class": "clickable intersectable"
+          },
+          "methods": {
+            "clickEventMethod": {},
+            "intersectEventMethod": {},
+            "clearIntersectEventMethod": {},
+            "generateColor": {}
+          },
+          "events": {
+            "clickEvent": {},
+            "intersectEvent": {},
+            "clearIntersectEvent": {}
+          },
+          "children": {
+            "synth": {
+               "extends": "proxy/synths/cymbal.vwf",
+               "properties": {}
+            },
+            "material": {
+              "extends": "proxy/aframe/aMaterialComponent.vwf",
+              "properties": {
+                "color": "#078509",
+                "transparent": true,
+                "opacity": 0.9
+              }
+            },
+            "raycaster-listener": {
+              "extends": "proxy/aframe/app-raycaster-listener-component.vwf",
+              "type": "component"
+            },
+            "cursor-listener": {
+              "extends": "proxy/aframe/app-cursor-listener-component.vwf",
+              "type": "component"
+            },
+            "label": {
+              "extends": "proxy/aframe/atext.vwf",
+              "properties": {
+                "value": "Cymbal",
+                "color": "#FFFFFF",
+                "position": [0,0.3,0],
+                "height": 1,
+                "width": 1,
+                "align": "center",
+                "anchor": "align"
+              }
+            },
+            "core": {
+              "extends": "proxy/aframe/asphere.vwf",
+              "properties": {
+                "color": "#ff0019",
+                "radius": 0.19
+              }
+            }
+          },
+          "scripts": {
+            "source": "drum.js"
+          }
+        }
+      }
+    },
+    "sky": {
+      "extends": "proxy/aframe/asky.vwf",
+      "children": {
+        "material": {
+          "extends": "proxy/aframe/aMaterialComponent.vwf",
+          "properties": {
+            "color": "#05041f",
+            "side": "back",
+            "fog": false,
+            "shader": "flat"
+          }
+        }
+      }
+    }
+  }
+}

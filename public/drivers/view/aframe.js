@@ -18,21 +18,21 @@ class AFrameView extends Fabric {
 
     let _self_ = this;
 
-	return this.load(this.module, 
+	return this.load(this.module,
         {
 
             // == Module Definition ====================================================================
-    
+
             initialize: function (options) {
                 let self = this;
                 this.fabric = _self_;
                 this.nodes = {};
-    
+
                 // this.tickTime = 0;
                 // this.realTickDif = 50;
                 // this.lastrealTickDif = 50;
                 // this.lastRealTick = performance.now();
-    
+
                 this.state.appInitialized = false;
                 this.state.showMobileJoystick = function(){
                     let controlEl = document.querySelector('#avatarControl');
@@ -48,64 +48,64 @@ class AFrameView extends Fabric {
                     controlEl.removeEventListener("move", _self_.setJoystickMoveInput.bind(_self_));
                     }
                 }
-    
+
                 if (options === undefined) { options = {}; }
-    
+
                 if (typeof options == "object") {
-    
+
                     this.rootSelector = options["application-root"];
                 }
                 else {
                     this.rootSelector = options;
                 }
-    
+
                 // this.gearvr = options.gearvr !== undefined ? options.gearvr : false;
                 // this.wmrright = options.wmrright !== undefined ? options.wmrright : false;
                 // this.wmrleft = options.wmrleft !== undefined ? options.wmrleft : false;
-    
+
                 this.xrType = undefined;
-    
+
                 //TODO: FIX detection in better way! (now works for Oculus Browser only)
-    
-                this.hmd = false; 
+
+                this.hmd = false;
                 this.threeDoF = false;
                 this.sixDoF = false;
-    
+
                 this.threeDoFMobile = AFRAME.utils.device.isMobileVR() && AFRAME.utils.device.checkHeadsetConnected() && !navigator.userAgent.includes('Quest');
                 this.sixDoFMobile = AFRAME.utils.device.checkHeadsetConnected() && navigator.userAgent.includes('Quest');
                 this.sixDoFDesktop = !AFRAME.utils.device.isMobile() && !AFRAME.utils.device.isMobileVR() && AFRAME.utils.device.checkHeadsetConnected();
-    
+
                 this.isDesktop = !this.threeDoFMobile && !this.sixDoFMobile && !this.sixDoFDesktop && !_app.config.d3DoF && !_app.config.d6DoF;
                 this.isMobile = AFRAME.utils.device.isMobile() && !AFRAME.utils.device.isMobileVR()
-                //!AFRAME.utils.device.isMobile() && 
+                //!AFRAME.utils.device.isMobile() &&
             },
-    
+
             createdNode: function (nodeID, childID, childExtendsID, childImplementsIDs,
                 childSource, childType, childIndex, childName, callback /* ( ready ) */) {
                 let self = this;
                 var node = this.state.nodes[childID];
-    
+
                 // If the "nodes" object does not have this object in it, it must not be one that
                 // this driver cares about
                 if (!node) {
                     return;
                 }
-    
+
                 if (this.state.scenes[childID]) {
                     let scene = this.state.scenes[childID];
                     //TODO: FIX
-                    
-    
+
+
                     let prepairAvatar = new Promise((resolve, reject) => {
                         document.body.appendChild(scene);
                         let createAvatarPromise = new Promise(r=> r(_self_.createAvatarControl(scene)));
-                        return resolve(createAvatarPromise) 
+                        return resolve(createAvatarPromise)
                     });
-    
+
                     prepairAvatar.then(res => {
-    
+
                             if (self.threeDoFMobile || _app.config.d3DoF ) {
-    
+
                                 console.log("CREATE GEARVR HERE!!");
                                 //this.xrType = 'mobileVR';
                                 let nodeName = 'gearvr-' + self.kernel.moniker();
@@ -113,16 +113,16 @@ class AFrameView extends Fabric {
                                 _self_.createXR.call(self, childID, nodeName, {});
                                 //_self_.createGearVRController.call(self, childID, nodeName);
                             }
-                        
-    
+
+
                            // if (!AFRAME.utils.device.isMobileVR()) {
                                 else if (self.sixDoFMobile || self.sixDoFDesktop || _app.config.d6DoF  ) {
                                     console.log("CREATE XRController RIGHT HERE!!");
                                     let nodeRight = 'xrcontroller-right-' + self.kernel.moniker();
                                     _self_.createXRControls('right');
                                     _self_.createXR.call(this, childID, nodeRight, {});
-    
-                                
+
+
                            // if (!AFRAME.utils.device.isMobileVR()) {
                             console.log("CREATE XRController LEFT HERE!!");
                                     let nodeLeft = 'xrcontroller-left-' + self.kernel.moniker();
@@ -140,185 +140,185 @@ class AFrameView extends Fabric {
 
                            // }
                         // console.log(res);
-                        _self_.createAvatar.call(self, childID);    
+                        _self_.createAvatar.call(self, childID);
                            _self_.postLoadAction.call(self, childID);
-    
+
                     }).then(res=>{
                         //document.body.appendChild(scene);
                     })
                     // this.state.appInitialized  = true;
-    
+
                     //document.body.appendChild(scene); //append is not working in Edge browser
-    
+
                 }
-    
+
                 if (this.state.nodes[childID] && this.state.nodes[childID].aframeObj) {
                     this.nodes[childID] = {
                         id: childID,
                         extends: childExtendsID,
                         liveBindings: {}
                         // lastTransformStep: 0,
-                        // lastAnimationStep: 0 
+                        // lastAnimationStep: 0
                     };
                 }
-    
-    
+
+
                 // if(this.state.nodes[childID]) {
                 //     this.nodes[childID] = {id:childID,extends:childExtendsID};
-                // } 
+                // }
                 // else if (this.state.nodes[childID] && this.state.nodes[childID].aframeObj.object3D instanceof THREE.Object3D) {
                 //     this.nodes[childID] = {id:childID,extends:childExtendsID};
                 // }
-    
+
             },
-    
+
             executed: function (nodeID, scriptText, scriptType) {
                 let self = this;
                 let node = this.state.nodes[nodeID];
-    
+
                 if (!(node)) {
                     return;
                 }
 
-    
+
             },
-    
-    
+
+
             initializedNode: function (nodeID, childID) {
                 let self = this;
                 var node = this.state.nodes[childID];
                 if (!node) {
                     return;
                 }
-    
+
                 if (node.extendsID == "proxy/aframe/gearvrcontroller.vwf") {
                     console.log("gearVR controller initialized")
                 }
-    
-    
+
+
                 // if (node.extendsID == "proxy/aframe/atext.vwf") {
                 //     console.log("Text component initialized");
                 //     node.aframeObj.play();
-    
+
                 // }
-    
+
                 // if (node.prototypes.includes("proxy/aframe/aentity.vwf")) {
-    
+
                 //     var clientThatSatProperty = self.kernel.client();
                 //     var me = self.kernel.moniker();
-    
-    
+
+
                 //     // If the transform property was initially updated by this view....
                 //     if (clientThatSatProperty == me) {
                 //         self.kernel.callMethod(childID, "setOwner", [me]);
                 //     }
                 // }
-    
-    
+
+
                 // if (propertyName == 'ownedBy')
                 // {
                 //     // if (!node.aframeObj.el.getAttribute('ownedBy')){
-    
+
                 //     // }
                 // }
-    
+
             },
-    
+
             createdProperty: function (nodeId, propertyName, propertyValue) {
                 return this.satProperty(nodeId, propertyName, propertyValue);
             },
-    
+
             initializedProperty: function (nodeId, propertyName, propertyValue) {
                 return this.satProperty(nodeId, propertyName, propertyValue);
             },
-    
+
             gotProperty: function (nodeId, propertyName, propertyValue) {
 
                 var node = this.state.nodes[nodeId];
-    
+
                 if (!(node && node.aframeObj)) {
                     return;
                 }
-    
-    
-    
-    
+
+
+
+
             },
-    
+
             satProperty: function (nodeId, propertyName, propertyValue) {
                 let self = this;
-    
+
                 var node = this.state.nodes[nodeId];
-    
+
                 if (!(node && node.aframeObj)) {
                     return;
                 }
-    
+
                 // if (propertyName == 'arjs') {
                 //     if(propertyValue) {
                 //         node.aframeObj.setAttribute('arjs', {trackingMethod: "best", sourceType: "webcam", debugUIEnabled: "true"});
-    
+
                 //     // let sceneEl = document.querySelector('a-scene');
                 //     // let marker = document.createElement('a-marker-camera');
                 //     // marker.setAttribute('preset', 'hiro');
                 //     // sceneEl.appendChild(marker);
                 //         //<a-marker-camera preset='hiro'></a-marker-camera>
-    
+
                 //     } else {
                 //         if(node.aframeObj.getAttribute('arjs')){
                 //             node.aframeObj.removeAttribute('arjs')
                 //         }
                 //     }
                 // }
-    
+
                 if (propertyName == 'position') {
                     _self_.receiveModelTransformChanges(nodeId, 'position', propertyValue);
                 }
-    
+
                 if (propertyName == 'rotation') {
                     _self_.receiveModelTransformChanges(nodeId, 'rotation', propertyValue);
                 }
-    
+
                 if (propertyName == 'scale') {
                     _self_.receiveModelTransformChanges(nodeId, 'scale', propertyValue);
                 }
-    
+
                 if (node.aframeObj.nodeName == "AUDIO" && propertyName == 'itemSrc') {
-    
+
                     //console.log("sat new item");
                     let elID = '#' + node.aframeObj.getAttribute('id');
                     Object.entries(this.state.nodes).forEach(el => {
                         let sound = el[1].aframeObj.getAttribute('sound');
                         if (sound) {
-    
+
                             let soundID = vwf.find(el[0], 'sound');
                             self.kernel.callMethod(soundID, "refreshSrc", [elID])
-    
+
                             // if (sound.src !== ""){
                             //     let src = '#' + sound.src.id;
                             //     if (src == elID){
                             //         let soundID = vwf.find(el[0], 'sound');
                             //         self.kernel.callMethod(soundID, "updateSrc", [elID])
                             //     }
-    
+
                             // }
-    
+
                         }
-    
+
                     })
                 }
-    
-    
+
+
                 if (node.aframeObj.nodeName == "IMG" && propertyName == 'itemSrc') {
                     _self_.updateMaterial(node);
                 }
-    
+
                 if (node.aframeObj.nodeName == "VIDEO" && propertyName == 'itemSrc') {
                     _self_.updateMaterial(node);
                 }
-    
+
                 if (node.aframeObj.nodeName == "A-ASSET-ITEM" && propertyName == 'itemSrc') {
-    
+
                     //console.log("sat new item");
                     let elID = '#' + node.aframeObj.getAttribute('id');
                     Object.entries(this.state.nodes).forEach(el => {
@@ -335,9 +335,9 @@ class AFrameView extends Fabric {
                                 self.kernel.callMethod(el[0], "updateModelMtl", [elID])
                         }
                     })
-    
+
                 }
-    
+
                 // var aframeObject = node.aframeObj;
                 // switch (propertyName) {
                 //     case "clickable":
@@ -352,45 +352,45 @@ class AFrameView extends Fabric {
                 //         break;
                 // }
             },
-    
+
             deletedNode: function (childID) {
                 delete this.nodes[childID];
             },
-    
+
             firedEvent: function (nodeID, eventName, eventParameters) {
                 let self = this;
                 var node = this.state.nodes[nodeID];
-    
+
                 if (!(node)) {
                     return;
                 }
 
                 var clientThatSatProperty = self.kernel.client();
                 var me = self.kernel.moniker();
-    
+
                 if (eventName == "changingTransformFromView") {
-    
+
                     // If the transform property was initially updated by this view....
                     if (clientThatSatProperty == me) {
                         var node = this.state.nodes[nodeID];
                         node.ignoreNextTransformUpdate = true;
                     }
                 }
-    
+
                 //var avatarID = vwf_view.kernel.find("", avatarName)
-    
+
                 // if (eventName == "postLoadAction") {
-    
+
                 //     Object.entries(self.state.nodes).forEach(el => {
                 //         if (el[1].prototypes.includes("proxy/aframe/aentity.vwf")) {
                 //             vwf_view.kernel.callMethod(el[0], "setOwner", [self.kernel.moniker()]);
                 //         }
-    
+
                 //     });
                 // }
-    
+
                  var avatarName = 'avatar-' + self.kernel.moniker();
-    
+
                  if (eventName == "clickEvent" ||
                     eventName == 'mousedownEvent' ||
                     eventName == 'mouseupEvent'){
@@ -406,17 +406,17 @@ class AFrameView extends Fabric {
                             if (mode) {
                                 console.log("allow to click!!!")
                                 vwf_view.kernel.setProperty(avatarName, 'selectMode', false);
-        
+
                                 let editorDriver = vwf.views["/drivers/view/editor"];
                                 if (editorDriver) {
                                     let selectSwitch = document.querySelector('#selectNodeSwitch');
                                     // const selectSwitchComp = new mdc.iconButton.MDCIconButtonToggle(selectSwitch); //new mdc.select.MDCIconToggle
                                     selectSwitch._comp.on = false;
-        
+
                                     let currentNodeDIV = document.querySelector('#currentNode');
                                     if (currentNodeDIV) currentNodeDIV._setNode(nodeID);
-        
-        
+
+
                                 }
                             }
 
@@ -427,77 +427,77 @@ class AFrameView extends Fabric {
 
 
 
-                let intersectEvents = ['fromhitstart', 'fromhitend', 'hitstart', 'hitend', 'intersect', 'clearIntersect']; //'intersect', 
-    
+                let intersectEvents = ['fromhitstart', 'fromhitend', 'hitstart', 'hitend', 'intersect', 'clearIntersect']; //'intersect',
+
                 let hitEvent = intersectEvents.filter(el=> el == eventName.slice(0,-5))[0]; //slice Event word
                 if (hitEvent)
                 {
-    
+
                     // If the transform property was initially updated by this view....
                     if (clientThatSatProperty == me) {
                             let methodName = eventName +'Method';
                             self.kernel.callMethod(nodeID, methodName, eventParameters);
 
                     }
-    
+
                 }
-        
-    
-    
+
+
+
                 // if (eventName == "clickEvent") {
-    
+
                 //     if (self.kernel.moniker() == eventParameters[0]) {
-    
+
                 //         let avatar = self.nodes[avatarName];
                 //         let mode = vwf.getProperty(avatarName, 'selectMode');
-    
-    
-                //         vwf_view.kernel.callMethod(nodeID, "clickEventMethod", [])
-    
 
-    
-    
+
+                //         vwf_view.kernel.callMethod(nodeID, "clickEventMethod", [])
+
+
+
+
                 //     }
-    
-    
+
+
                 // }
             },
-    
+
             ticked: function (vwfTime) {
                 let self = this;
                 _self_.updateAvatarPosition();
-    
+
                 //update vr controllers
-    
+
                 if(self.hmd){
                     if(self.threeDoF )
                             _self_.updateHandControllerVR('gearvr-', '#gearvrcontrol');
-    
+
                     if(this.sixDoF ) {
                         _self_.updateHandControllerVR('xrcontroller-right-', '#xrcontrollerright');
                         _self_.updateHandControllerVR('xrcontroller-left-', '#xrcontrollerleft');
                     }
                 }
-    
+
                 if (this.isDesktop){
                     _self_.updateDesktopController('mouse-', '#mouse');
                 }
-        
-                    
-                
-    
+
+
+
+
                 //lerpTick ();
             },
-    
+
             calledMethod: function (nodeID, methodName, methodParameters, methodValue) {
                 let self = this;
                 var node = this.state.nodes[nodeID];
-    
+
                 if (!(node && node.aframeObj)) {
                     return;
                 }
-    
-    
+
+
                 switch (methodName) {
                     case "translateBy":
                     case "translateTo":
@@ -516,7 +516,7 @@ class AFrameView extends Fabric {
                         //resetInterpolationFromViewDriver(nodeID, methodParameters, 'rotation')
                         break;
                 }
-    
+
                 if (this.nodes[nodeID].extends == "proxy/aframe/acamera.vwf") {
                     if (methodName == "setCameraToActive") {
                         if (methodParameters[0] == vwf.moniker_) {
@@ -527,12 +527,12 @@ class AFrameView extends Fabric {
                                 self.kernel.callMethod(offsetCompID, "setParams", []);
                             }
                             node.aframeObj.setAttribute('camera', 'active', true);
-    
+
                             document.querySelector('a-scene').emit('makeActiveCamera');
                         }
                     }
                 }
-    
+
                 // if (methodName == "createGooglePoly") {
                 // }
 
@@ -540,7 +540,7 @@ class AFrameView extends Fabric {
 
                     //var clientThatSatProperty = self.kernel.client();
                     var me = self.kernel.moniker();
-    
+
                     // If the transform property was initially updated by this view....
                     if (nodeID.includes(me)) {
                         console.log('Creating raycaster for ME: ', nodeID);
@@ -548,10 +548,13 @@ class AFrameView extends Fabric {
 
                         xrcontroller.setAttribute('raycaster', {
                             objects: '.intersectable',
-                            showLine: false,
-                            far: 100,
+                            showLine: true,
+                            far: 1,
                             recursive: false,
-                            interval: 10});
+                            interval: 0,
+                            lineColor: "white"
+                            });
+
 
                             // xrcontroller.addEventListener('raycaster-intersection', function (evt) {
                             //     let int = evt.detail.intersections[0];
@@ -561,16 +564,16 @@ class AFrameView extends Fabric {
                             //     }
                             //     console.log(idata)
                             // })
-                        
+
                             // xrcontroller.addEventListener('raycaster-intersection-cleared', function (evt) {
                             // })
                     }
 
-                   
+
 
 
                 }
-    
+
             }
         });
     }
@@ -589,8 +592,8 @@ class AFrameView extends Fabric {
     }
 
 
-    // Receive Model Transform Changes algorithm 
-    // 1.0 If (own view changes) then IGNORE (only if no external changes have occurred since the user’s view 
+    // Receive Model Transform Changes algorithm
+    // 1.0 If (own view changes) then IGNORE (only if no external changes have occurred since the user’s view
     //       requested this change – otherwise, will need to treat like 1.1 or 1.2)
     // 1.1 Elseif (other external changes and no outstanding own view changes) then ADOPT
     // 1.2 Else Interpolate to the model’s transform (conflict b/w own view and external sourced model changes)
@@ -632,7 +635,7 @@ class AFrameView extends Fabric {
             } else if (propertyName == 'scale') {
                 let scale = prop.clone();
                 node.aframeObj.object3D.scale.copy(scale);
-            } 
+            }
 
         }
     }
@@ -695,8 +698,8 @@ class AFrameView extends Fabric {
             // let currentPosition = node.aframeObj.getAttribute('position');
             // let currentRotation = node.aframeObj.getAttribute('rotation');
 
-            
-            // compareCoordinates(position, lastPosition, delta) 
+
+            // compareCoordinates(position, lastPosition, delta)
 
             if(position && lastPosition ) {
                 let distance = lastPosition.distanceTo(position);
@@ -717,7 +720,7 @@ class AFrameView extends Fabric {
                    } else {
                     self.kernel.callMethod(avatarName, "updateAvatarRotation", [rotation]);
                    }
-                    
+
                 }
             }
             self.nodes[avatarName].selfTickRotation = Object.assign({}, rotation);
@@ -730,21 +733,21 @@ class AFrameView extends Fabric {
     updateDesktopController(aName, aSelector) {
         let self = this.instance;
          //let avatarName = 'avatar-' + self.kernel.moniker();
- 
+
          let delta = 0.001
-        
+
          let avatarID = 'avatar-' + self.kernel.moniker();
          let avatarName = aName + self.kernel.moniker();
          var node = self.state.nodes[avatarName];
          if (!node) return;
          if (!node.aframeObj) return;
- 
+
          //let elA = document.querySelector('#avatarControlParent');
          let elA = document.querySelector('#avatarControl');
          let el = document.querySelector(aSelector);
          let xrController = document.querySelector('#' + avatarName);
          if (el && elA) {
- 
+
             //  let positionC = el.object3D.position.clone();
             //  let positionA = elA.object3D.position.clone();
             //  let position = positionC.add(positionA);
@@ -766,7 +769,7 @@ class AFrameView extends Fabric {
                 rotation = this.getWorldRotation(elA, 'XYZ');
                 headRotation = headWorldQuat;
             }
-            
+
             //let rotation = el.getAttribute('rotation');
             //((AFRAME.utils.device.isMobile() && !AFRAME.utils.device.isMobileVR()) || self.isDesktop) ? elA.getAttribute('rotation') : el.getAttribute('rotation');
              //let rotation =  el.getAttribute('rotation'); //this.getWorldRotation(el, 'YXZ');
@@ -774,13 +777,13 @@ class AFrameView extends Fabric {
 
              let lastRotation = self.nodes[avatarName].selfTickRotation;
              let lastPosition = self.nodes[avatarName].selfTickPosition ? self.nodes[avatarName].selfTickPosition: new THREE.Vector3(0, 0, 0);
- 
+
              // let currentPosition = node.aframeObj.getAttribute('position');
              //let currentRotation = node.aframeObj.getAttribute('rotation');
- 
+
              if (position && lastPosition) {
                  let distance = lastPosition.distanceTo(position);
- 
+
                  if (distance > delta)
                  {
                     // console.log("position not equal");
@@ -792,10 +795,10 @@ class AFrameView extends Fabric {
                      self.kernel.callMethod(avatarName, "moveVRController",[idata]);
                  }
              }
- 
+
              if (rotation && lastRotation) {
                  let distance = this.compareCoordinates(rotation, lastRotation, delta)
- 
+
                  if (distance)
                  {
                      //console.log("rotation not equal");
@@ -810,10 +813,10 @@ class AFrameView extends Fabric {
                      self.kernel.callMethod(avatarID, "moveHead", [headRotation]);
                  }
              }
- 
+
             self.nodes[avatarName].selfTickPosition = position.clone();
              self.nodes[avatarName].selfTickRotation = Object.assign({}, rotation);
- 
+
          }
      }
 
@@ -859,7 +862,7 @@ class AFrameView extends Fabric {
                     point: point,
                     elID: elID
                 } : null;
-               
+
                    // console.log("position not equal");
                     self.kernel.setProperty(avatarName, "position", position);
                     self.kernel.callMethod(avatarName, "moveVRController",[idata]);
@@ -904,19 +907,19 @@ class AFrameView extends Fabric {
      getMovementVector(el, vel) {
         var directionVector = new THREE.Vector3(0, 0, 0);
         var rotationEuler = new THREE.Euler(0, 0, 0, 'YXZ');
-    
-        
+
+
           var rotation = el.getAttribute('rotation');
           var velocity = vel;
-    
+
           directionVector.copy(velocity);
           directionVector.multiplyScalar(0.05);
-    
+
           // Absolute.
           if (!rotation) { return directionVector; }
-    
+
           //xRotation = this.data.fly ? rotation.x : 0;
-    
+
           // Transform direction relative to heading.
           rotationEuler.set(THREE.Math.degToRad(0), THREE.Math.degToRad(rotation.y), 0);
           directionVector.applyEuler(rotationEuler);
@@ -961,7 +964,7 @@ class AFrameView extends Fabric {
 
 
 
-       
+
 
         //avatarEl.setAttribute('position', '0 1.6 0');
 
@@ -983,7 +986,7 @@ class AFrameView extends Fabric {
         cursorEl.setAttribute('raycaster', 'showLine', false);
 
         if (self.d3DoF || _app.config.d3DoF) {
-            //avatarEl.setAttribute('gearvr-controls', {}); 
+            //avatarEl.setAttribute('gearvr-controls', {});
             avatarEl.setAttribute('movement-controls', {});//{'controls': 'gamepad'});
             //avatarEl.setAttribute("gamepad-controls", {});
             //avatarEl.setAttribute('position', '0 0 0');
@@ -998,12 +1001,12 @@ class AFrameView extends Fabric {
         }
         //controlEl.addEventListener("rotateY", setJoystickRotateY);
         //controlEl.addEventListener("rotateX", setJoystickRotateX);
-        
+
 
         //controlEl.setAttribute('gearvr-controls',{});
 
 
-       
+
 
         else if (self.isDesktop){
             cursorEl.setAttribute('cursor',
@@ -1011,7 +1014,7 @@ class AFrameView extends Fabric {
                 rayOrigin: 'mouse'
             });
             cursorEl.setAttribute('visible', false);
-             
+
         }
 
         // cursorEl.setAttribute('raycaster', {objects: '.intersectable', showLine: true, far: 100});
@@ -1114,7 +1117,7 @@ class AFrameView extends Fabric {
            }
 
            if (!self.state.nodes[avatarName]) {
-              
+
 
                if (_LCSDB.user().is) {
 
@@ -1140,24 +1143,24 @@ class AFrameView extends Fabric {
 
                                        if (_app.helpers.testJSON(res)){
                                            myNode = JSON.parse(res);
-                                       }  
+                                       }
 
                                        vwf_view.kernel.callMethod(avatarName, "createAvatarBody", [myNode, null]);
                                    } else {
                                        vwf_view.kernel.callMethod(avatarName, "createAvatarBody", []);
                                    }
                                   // newNode.properties.displayName = res.alias;
-       
-                                   
+
+
                                    //"/../assets/avatars/male/avatar1.gltf"
-       
-       
+
+
                                    //vwf_view.kernel.callMethod(avatarName, 'setUserAvatar', [res] );
                                });
 
 
-                           
-                 
+
+
                } else {
 
                    vwf_view.kernel.createChild(nodeID, avatarName, newNode);
@@ -1167,7 +1170,7 @@ class AFrameView extends Fabric {
                }
 
                //
-               
+
 
            }
     }
@@ -1184,10 +1187,10 @@ class AFrameView extends Fabric {
             'model': true
         });
         //el.setAttribute('laser-controls', {hand: "right"});
-    
+
         // gearvr.setAttribute('gearvr-controls', 'hand', 'right');
 
-        el.setAttribute('teleport-controls', { 
+        el.setAttribute('teleport-controls', {
             cameraRig: '#avatarControlParent',
             teleportOrigin: '#avatarControl',
             startEvents: 'teleportstart',
@@ -1240,7 +1243,7 @@ class AFrameView extends Fabric {
         el.setAttribute('xrcontroller', { 'hand': hand });
 
         //add teleport controls
-        el.setAttribute('teleport-controls', { 
+        el.setAttribute('teleport-controls', {
             cameraRig: '#avatarControlParent',
             teleportOrigin: '#avatarControl',
             startEvents: 'teleportstart',

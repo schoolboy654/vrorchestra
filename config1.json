@@ -1,0 +1,10 @@
+{
+    "ssl": true,
+    "port": 3007,
+    "sslKey":"./certs/server.key",
+    "sslCert":"./certs/server.crt",
+    "sslCA":"./certs/server.csr",
+    "certPwd": "",
+    "reflector": false,
+    "db": false
+}

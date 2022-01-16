@@ -1,0 +1,10 @@
+{
+    "extends": "proxy/tonejs/polySynth.vwf",
+    "properties": {
+
+    },
+    "methods":{},
+    "scripts": {
+      "source": "synth.js"
+    }
+  }

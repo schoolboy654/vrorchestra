@@ -1,0 +1,10 @@
+{
+    "extends": "proxy/tonejs/polySynth.vwf",
+    "properties": {
+        "type":"fatsawtooth"
+    },
+    "methods":{},
+    "scripts": {
+      "source": "synth.js"
+    }
+  }

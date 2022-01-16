@@ -1,0 +1,49 @@
+{
+  "extends": "proxy/aframe/ascene.vwf",
+  "properties": {
+    "transparent": true
+  },
+  "methods": {
+    "initialize": {},
+    "initCreateButton": {}
+  },
+  "scripts": {
+    "source": "initialize.js"
+  },
+  "children": {
+    "sky": {
+      "extends": "proxy/aframe/asky.vwf",
+      "children": {
+        "material": {
+          "extends": "proxy/aframe/aMaterialComponent.vwf",
+          "properties": {
+            "color": "#02001c",
+            "side": "back",
+            "fog": false,
+            "shader": "flat"
+          }
+        }
+      }
+    },
+    "light1": {
+      "extends": "proxy/aframe/alight.vwf",
+      "properties": {
+        "type": "ambient",
+        "color": "#BBB"
+      }
+    },
+    "light2": {
+      "extends": "proxy/aframe/alight.vwf",
+      "properties": {
+        "type": "directional",
+        "color": "#FFF",
+        "intensity": "0.6",
+        "position": [
+          -0.5,
+          1,
+          1
+        ]
+      }
+    }
+  }
+}
